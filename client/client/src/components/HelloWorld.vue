@@ -182,6 +182,7 @@ watch([startDate, endDate, category], () => {
 
     <h2>Filter by Date Range and/or Category</h2>
     <div class="filters">
+      <!-- Use @change so only actual day selection triggers update -->
       <input type="date" :value="startDate" @change="e => startDate = e.target.value" />
       <input type="date" :value="endDate" @change="e => endDate = e.target.value" />
 
