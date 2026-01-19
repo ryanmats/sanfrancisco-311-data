@@ -40,7 +40,7 @@ start_date, end_date, and category arguments. For example you can try visiting t
 `http://127.0.0.1:5000/api/complaints?start_date=2025-09-01&end_date=2025-09-07&category=Encampment`.
 
 Visit `127.0.0.1:5000/api/complaints_resolution_data` to see raw data about complaint resolution time
-broken down into time buckets (<1 Hour, 1 Hour, 2 Hours, ... 10+ Days). The default date
+broken down into time buckets (<1 Hour, 1 Hour, 2 Hours, ... 10+ Days, or Not Resolved). The default date
 range is 2025-10-01 to 2025-10-07 and the default category includes all categories. Try to adjust the
 start_date, end_date, and category arguments. For example you can try visiting this URL:
 `http://127.0.0.1:5000/api/complaints_resolution_data?start_date=2025-09-01&end_date=2025-09-07&category=Encampment`.
@@ -72,15 +72,22 @@ Try changing the start date, end date, and category to see the charts update bas
 
 As discussed above, I created a second backend API endpoint (`api/complaints_resolution_data`) that gets
 data about how long it took for complaints to be resolved. For a given date range and category, you are
-given a distribution of how many complaints were resolved within different time buckets (e.g. <1 Hour,
-2 Hours, 3 Hours ... 10+ Days). I chose to build this endpoint because it would be useful for a variety of
+given a distribution of how many complaints were resolved within different time buckets (e.g. <1 Hour, 1 Hour,
+2 Hours, 3 Hours ... 10+ Days, or Not Resolved).
+
+It was interesting to see which types of complaints are resolved fastest. Parking Enforcement and Blocked
+Street and Sidewalk complaints are resolved quickly -- usually within an hour or two. Encampment complaints
+are resolved relatively quickly as well -- with a bimodal distribution peaking at <1 Hour and 1 Day.
+Graffiti and Tree Maintenance complaints seem to take much longer -- often 10+ days or still not resolved.
+
+I chose to build this endpoint because it would be useful for a variety of
 important stakeholders: San Francisco residents, San Francisco government agencies, nonprofit government
 accountability groups, and academic researchers:
 
-- San Francisco residents may find this data useful because it shows how long they may expect to wait to have their own 311 complaints resolved. For example, a resident may want to know how long it has been taking for Noise complaints to be addressed.
-- San Francisco government agencies may be interested in how quickly different policy priorities are being addressed. They can look at data about how quickly certain complaints (like Street and Sidewalk Cleaning) are being addressed so they can make strategic adjustments and funding adjustments as necessary.
+- San Francisco residents may find this data useful because it shows how long they may expect to wait to have their own 311 complaints resolved. For example, a resident may want to know how long it takes for Noise complaints to be addressed.
+- San Francisco government agencies may be interested in how quickly different policy priorities are being addressed. They can look at data about how quickly certain complaints (like Street and Sidewalk Cleaning) are being addressed so they can make operational improvements and funding adjustments as necessary.
 - Nonprofit government accountability groups may be interested in this data so they can advocate for changes when the city government is not doing well. For example, they may be interested in seeing which categories of complaints are taking too long to be resolved, especially if this time to resolution has increased compared to previous years.
-- Academic researchers may be interested in looking at how complaint resolution time has changed over time as they study government effectiveness. They could potentially compare this San Francisco 311 data to other cities for a deeper analysis.
+- Academic researchers may be interested in looking at how complaint resolution time has changed over time as they study government effectiveness. They could also compare this San Francisco 311 data to other cities for a deeper analysis.
 
 ### 8. Review Code
 
@@ -95,8 +102,8 @@ about frontend development with Vue.js, since I have not used it before. This wa
 using the Chart.JS library to generate data visualizations. I also used AI to help debug some tricky syntax
 issues (often resolved by adjusting something minor like adding a closing parentheses). Additionally, I used
 AI to re-teach me how to use BigQuery Scalar Query Parameters (rather than simple string concatenation) to
-protect against SQL injection risk from user-provided arguments. I remembered that this was a thing, but used
-AI to get the correct syntax necessary.
+protect against SQL injection risk from user-provided arguments. I remembered that this was important, but used
+AI as a refresher to get the correct syntax.
 
 While AI was very helpful, I made an effort throughout this project to learn the development concepts it was
 teaching me rather than just blindly copying and pasting and hoping for the best.
@@ -108,11 +115,10 @@ Code Cleanup:
 - Get teammates to review Python and Vue.js code.
 
 User Experience Research:
-- Conduct user research (e.g. interviews, surveys) of key stakeholders (e.g. City of SF employees, nonprofit organizations, and academic researchers) to determine helpful additional features.
+- Conduct user research (e.g. user experience sessions, interviews, surveys) of key stakeholders (e.g. City of SF employees, nonprofit organizations, SF residents, and academic researchers) to determine potential adjustments and new features.
 
 Potential Future Features:
 - Show how complaint resolution time varies depending on time of day or day of week for each complaint.
-- Surface information about currently open 311 requests
+- Surface information about **currently open** 311 requests.
 - Show data about complaints by neighborhood, broken them down by complaint type.
 - Use latitude/longitude data to map complaint data on a geographic map of the city.
-
