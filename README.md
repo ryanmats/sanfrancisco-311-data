@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ### 3. Add BigQuery Credentials
 
-Acquire a BigQuery service account key JSON file in the project root directory and name it `service.json`.
+Acquire a BigQuery service account key JSON file, place it in the project root directory, and name it `service.json`.
 
 
 ### 4. Run the Backend
