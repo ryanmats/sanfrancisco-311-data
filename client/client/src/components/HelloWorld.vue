@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, watch, computed } from 'vue';
+
 import {
   Chart,
   LineController,
@@ -27,21 +28,22 @@ Chart.register(
   Legend
 );
 
-// --- Reactive state ---
+// Reactive objects to keep track of complaint data being sent from the backend API.
 const complaints = ref([]);
 const complaintsResolution = ref([]);
 const error = ref(null);
 
-const startDate = ref('2025-09-01'); // default
-const endDate = ref('2025-09-07');   // default
+const startDate = ref('2025-10-01'); // default
+const endDate = ref('2025-10-07');   // default
 const category = ref('All Categories'); // default
 
+// Set up these chart variables (for both charts) as computed properties that automatically recalculate when their dependencies change when the backend API is called to fetch data.
 const labels = computed(() => complaints.value.map(c => c.created_date));
 const values = computed(() => complaints.value.map(c => c.count));
-
 const labelsComplaintsResolution = computed(() => complaintsResolution.value.map(c => c.time_bucket));
 const valuesComplaintsResolution = computed(() => complaintsResolution.value.map(c => c.count));
 
+// List of top categories in 2025. There are some other minor categories (and categories that were used in previous years) that we could potentially add as well, but I kept it to the top 28 here for simplicity.
 const categories = [
   'All Categories',
   'Street and Sidewalk Cleaning',
@@ -73,10 +75,9 @@ const categories = [
   'Citations Questions Comments'
 ];
 
-// --- Chart refs ---
+// Set up chart canvas and instance reactive containers (these will be populated later)
 const chartCanvas = ref(null);
 const chartInstance = ref(null);
-
 const chartCanvasComplaintsResolution = ref(null);
 const chartInstanceComplaintsResolution = ref(null);
 
@@ -123,7 +124,7 @@ const renderChartInstance = (canvasRef, chartInstanceRef, chartType, chartData, 
   });
 };
 
-// --- Updates Complaints Over Time data/chart ---
+// --- Updates Complaints Over Time data/chart using backend API call ---
 const updateComplaintData = async () => {
   const url = `http://127.0.0.1:5000/api/complaints?start_date=${startDate.value}&end_date=${endDate.value}&category=${category.value}`;
   complaints.value = await fetchData(url);
@@ -142,7 +143,7 @@ const updateComplaintData = async () => {
   );
 };
 
-// --- Updates Time to Resolution data/chart ---
+// --- Updates Time to Resolution data/chart using backend API call ---
 const updateComplaintsResolutionData = async () => {
   const url = `http://127.0.0.1:5000/api/complaints_resolution_data?start_date=${startDate.value}&end_date=${endDate.value}&category=${category.value}`;
   complaintsResolution.value = await fetchData(url);
@@ -167,7 +168,7 @@ onMounted(() => {
   updateComplaintsResolutionData();
 });
 
-// --- Watch for date range / category filters. When they change, update charts. ---
+// --- Watch date range / category filters. When they change, call the backend API and update charts. ---
 watch([startDate, endDate, category], () => {
   updateComplaintData();
   updateComplaintsResolutionData();
