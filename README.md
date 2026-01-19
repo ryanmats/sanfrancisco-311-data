@@ -85,9 +85,16 @@ copying and pasting.
 
 ### 8. Future Development
 
-Potential future features include:
+Code Cleanup:
+- Clean up the frontend Vue.js code to remove parts of the initial starter project that we don't actually need. For the purposes of this project I did not get around to this yet because of timing and because I am new to Vue.js and didn't want to accidentally break the code.
+- Get teammates to review Python and Vue.js code.
+
+User Experience Research:
+- Conduct user research (e.g. interviews, surveys) of key stakeholders (e.g. City of SF employees, nonprofit organizations, and academic researchers) to determine helpful additional features.
+
+Potential Future Features:
 - Show how complaint resolution time varies depending on time of day or day of week for each complaint.
 - Surface information about currently open 311 requests
 - Show data about complaints by neighborhood, broken them down by complaint type.
 - Use latitude/longitude data to map complaint data on a geographic map of the city.
-- Conduct user research (e.g. interviews, surveys) of key stakeholders (e.g. City of SF employees, nonprofit organizations, and academic researchers) to determine helpful additional features.
+
