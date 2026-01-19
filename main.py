@@ -25,7 +25,7 @@ def parse_request_args():
     # Get the start_date parameter, set default if not provided
     end_date = request.args.get('end_date', DEFAULT_END_DATE)
 
-    # Get the category parameter.
+    # Get the category parameter. 
     category = request.args.get('category')
     if category == "All Categories":
         category = None
