@@ -45,7 +45,7 @@ range is 2025-10-01 to 2025-10-07 and the default category includes all categori
 start_date, end_date, and category arguments. For example you can try visiting this URL:
 `http://127.0.0.1:5000/api/complaints_resolution_data?start_date=2025-09-01&end_date=2025-09-07&category=Encampment`.
 
-### 5. Run the Frontend
+### 6. Run the Frontend
 
 **Keep the Python Flask Backend application running in one Terminal tab.** Open a new Terminal tab to run
 the Frontend web app separately.
@@ -68,22 +68,40 @@ is surfaced by calling the `/api/complaints_resolution_data` backend API endpoin
 
 Try changing the start date, end date, and category to see the charts update based on your inputs.
 
-### 6. Review Code
+### 7. Creative Endpoint Explanation
+
+As discussed above, I created a second backend API endpoint (`api/complaints_resolution_data`) that gets
+data about how long it took for complaints to be resolved. For a given date range and category, you are
+given a distribution of how many complaints were resolved within different time buckets (e.g. <1 Hour,
+2 Hours, 3 Hours ... 10+ Days). I chose to build this endpoint because it would be useful for a variety of
+important stakeholders: San Francisco residents, San Francisco government agencies, nonprofit government
+accountability groups, and academic researchers:
+
+- San Francisco residents may find this data useful because it shows how long they may expect to wait to have their own 311 complaints resolved. For example, a resident may want to know how long it has been taking for Noise complaints to be addressed.
+- San Francisco government agencies may be interested in how quickly different policy priorities are being addressed. They can look at data about how quickly certain complaints (like Street and Sidewalk Cleaning) are being addressed so they can make strategic adjustments and funding adjustments as necessary.
+- Nonprofit government accountability groups may be interested in this data so they can advocate for changes when the city government is not doing well. For example, they may be interested in seeing which categories of complaints are taking too long to be resolved, especially if this time to resolution has increased compared to previous years.
+- Academic researchers may be interested in looking at how complaint resolution time has changed over time as they study government effectiveness. They could potentially compare this San Francisco 311 data to other cities for a deeper analysis.
+
+### 8. Review Code
 
 For the backend Python Flask code, visit `main.py`. Here you will find code for the two API endpoints.
 
 For the frontend Vue.js/HTML code, visit `client/client/src/components/HelloWorld.vue`.
 
-### 7. Development Notes and Use of AI
+### 9. Development Notes and Use of AI
 
 I used AI to assist my development of this project primarily by using ChatGPT and Google AI to teach me more
 about frontend development with Vue.js, since I have not used it before. This was particularly helpful with
 using the Chart.JS library to generate data visualizations. I also used AI to help debug some tricky syntax
-issues (often resolved by adjusting something minor like adding a closing parentheses). While AI was very
-helpful, I made an effort to learn the development concepts it was teaching me rather than just blindly
-copying and pasting.
+issues (often resolved by adjusting something minor like adding a closing parentheses). Additionally, I used
+AI to re-teach me how to use BigQuery Scalar Query Parameters (rather than simple string concatenation) to
+protect against SQL injection risk from user-provided arguments. I remembered that this was a thing, but used
+AI to get the correct syntax necessary.
 
-### 8. Future Development
+While AI was very helpful, I made an effort throughout this project to learn the development concepts it was
+teaching me rather than just blindly copying and pasting and hoping for the best.
+
+### 10. Future Development
 
 Code Cleanup:
 - Clean up the frontend Vue.js code to remove parts of the initial starter project that we don't actually need. For the purposes of this project I did not get around to this yet because of timing and because I am new to Vue.js and didn't want to accidentally break the code.
